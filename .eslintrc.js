@@ -1,3 +1,4 @@
 module.exports = {
-    extends: 'react-app/jest',
+    extends: ['react-app'],
+
   };
