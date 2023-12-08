@@ -31,7 +31,7 @@ const App = () => {
     };
   };
 
-  const stats = useMemo(() => calculateStats(), [feedback, calculateStats]);
+  const stats = useMemo(() => calculateStats(), []);
 
   return (
     <>
