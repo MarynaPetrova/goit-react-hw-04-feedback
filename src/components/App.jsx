@@ -8,10 +8,10 @@ const App = () => {
   const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 });
 
   const handleFeedback = option => {
-    setFeedback(prevState => ({
-      ...prevState,
-      [option]: prevState[option] + 1,
-    }));
+    setFeedback({
+      ...feedback,
+      [option]: feedback[option] + 1,
+    });
   };
 
   const countTotalFeedback = () => feedback.good + feedback.neutral + feedback.bad;
@@ -21,8 +21,13 @@ const App = () => {
     return total > 0 ? (feedback.good / total) * 100 : 0;
   };
 
-  const totalFeedback = useMemo(() => countTotalFeedback(), [feedback.good, feedback.neutral, feedback.bad]);
-  const positiveFeedbackPercentage = useMemo(() => countPositiveFeedbackPercentage(), [feedback.good, feedback.neutral, feedback.bad]);
+  const stats = useMemo(() => ({
+    good: feedback.good,
+    neutral: feedback.neutral,
+    bad: feedback.bad,
+    total: countTotalFeedback(),
+    positivePercentage: countPositiveFeedbackPercentage(),
+  }), [feedback.good, feedback.neutral, feedback.bad]);
 
   return (
     <>
@@ -33,14 +38,14 @@ const App = () => {
         />
       </Section>
 
-      {totalFeedback > 0 ? (
+      {stats.total > 0 ? (
         <Section title="Statistics">
           <Statistics
-            good={feedback.good}
-            neutral={feedback.neutral}
-            bad={feedback.bad}
-            total={totalFeedback}
-            positivePercentage={positiveFeedbackPercentage}
+            good={stats.good}
+            neutral={stats.neutral}
+            bad={stats.bad}
+            total={stats.total}
+            positivePercentage={stats.positivePercentage}
           />
         </Section>
       ) : (
