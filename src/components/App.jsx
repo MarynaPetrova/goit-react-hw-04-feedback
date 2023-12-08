@@ -21,8 +21,8 @@ const App = () => {
     return total > 0 ? (feedback.good / total) * 100 : 0;
   };
 
-  const totalFeedback = useMemo(countTotalFeedback, [feedback.good, feedback.neutral, feedback.bad]);
-  const positiveFeedbackPercentage = useMemo(countPositiveFeedbackPercentage, [feedback.good, feedback.neutral, feedback.bad]);
+  const totalFeedback = useMemo(() => countTotalFeedback(), [feedback.good, feedback.neutral, feedback.bad]);
+  const positiveFeedbackPercentage = useMemo(() => countPositiveFeedbackPercentage(), [feedback.good, feedback.neutral, feedback.bad]);
 
   return (
     <>
